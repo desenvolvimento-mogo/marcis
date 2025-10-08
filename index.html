@@ -1,1687 +1,848 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="description" content="Corrida Apé - Jogo de Corrida">
-    <meta name="theme-color" content="#3b82f6">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Corrida Apé">
-    <title>Corrida Apé - Pato Branco → Curitiba</title>
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Corrida Maluca</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #60A5FA 0%, #34D399 100%);
-            min-height: 100vh;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
-            overscroll-behavior: none;
-        }
-
-        #root {
-            width: 100%;
-            min-height: 100vh;
-        }
-
-        .flex {
-            display: flex;
-        }
-
-        .flex-col {
-            flex-direction: column;
-        }
-
-        .items-center {
-            align-items: center;
-        }
-
-        .justify-center {
-            justify-content: center;
-        }
-
-        .min-h-screen {
-            min-height: 100vh;
-        }
-
-        .bg-gradient-to-b {
-            background: linear-gradient(to bottom, #60A5FA, #34D399);
-        }
-
-        .p-4 {
-            padding: 1rem;
-        }
-
-        .p-6 {
-            padding: 1.5rem;
-        }
-
-        .p-8 {
-            padding: 2rem;
-        }
-
-        .bg-white {
-            background-color: white;
-        }
-
-        .rounded-2xl {
-            border-radius: 1rem;
-        }
-
-        .rounded-lg {
-            border-radius: 0.5rem;
-        }
-
-        .shadow-2xl {
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-        }
-
-        .max-w-4xl {
-            max-width: 56rem;
-        }
-
-        .w-full {
-            width: 100%;
-        }
-
-        .text-4xl {
-            font-size: 2.25rem;
-        }
-
-        .text-3xl {
-            font-size: 1.875rem;
-        }
-
-        .text-xl {
-            font-size: 1.25rem;
-        }
-
-        .text-lg {
-            font-size: 1.125rem;
-        }
-
-        .text-sm {
-            font-size: 0.875rem;
-        }
-
-        .font-bold {
-            font-weight: 700;
-        }
-
-        .font-semibold {
-            font-weight: 600;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .mb-2 {
-            margin-bottom: 0.5rem;
-        }
-
-        .mb-3 {
-            margin-bottom: 0.75rem;
-        }
-
-        .mb-4 {
-            margin-bottom: 1rem;
-        }
-
-        .mb-6 {
-            margin-bottom: 1.5rem;
-        }
-
-        .mt-2 {
-            margin-top: 0.5rem;
-        }
-
-        .mt-3 {
-            margin-top: 0.75rem;
-        }
-
-        .mx-auto {
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .space-y-1 > * + * {
-            margin-top: 0.25rem;
-        }
-
-        .space-y-4 > * + * {
-            margin-top: 1rem;
-        }
-
-        .space-y-6 > * + * {
-            margin-top: 1.5rem;
-        }
-
-        .text-blue-600 {
-            color: #2563eb;
-        }
-
-        .text-blue-500 {
-            color: #3b82f6;
-        }
-
-        .text-gray-600 {
-            color: #4b5563;
-        }
-
-        .text-white {
-            color: white;
-        }
-
-        .text-green-600 {
-            color: #16a34a;
-        }
-
-        .text-orange-500 {
-            color: #f97316;
-        }
-
-        .bg-blue-50 {
-            background-color: #eff6ff;
-        }
-
-        .bg-blue-500 {
-            background-color: #3b82f6;
-        }
-
-        .bg-green-500 {
-            background-color: #22c55e;
-        }
-
-        .bg-yellow-50 {
-            background-color: #fefce8;
-        }
-
-        .bg-gray-200 {
-            background-color: #e5e7eb;
-        }
-
-        .border-2 {
-            border-width: 2px;
-        }
-
-        .border-4 {
-            border-width: 4px;
-        }
-
-        .border-blue-200 {
-            border-color: #bfdbfe;
-        }
-
-        .border-blue-300 {
-            border-color: #93c5fd;
-        }
-
-        .border-yellow-200 {
-            border-color: #fef08a;
-        }
-
-        button {
-            cursor: pointer;
-            border: none;
-            transition: all 0.2s;
-        }
-
-        .px-2 {
-            padding-left: 0.5rem;
-            padding-right: 0.5rem;
-        }
-
-        .px-6 {
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
-        }
-
-        .px-8 {
-            padding-left: 2rem;
-            padding-right: 2rem;
-        }
-
-        .py-1 {
-            padding-top: 0.25rem;
-            padding-bottom: 0.25rem;
-        }
-
-        .py-2 {
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
-        }
-
-        .py-3 {
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
-        }
-
-        .py-4 {
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-        }
-
-        button:hover {
-            transform: translateY(-2px);
-        }
-
-        .bg-blue-500:hover {
-            background-color: #2563eb;
-        }
-
-        .bg-green-500:hover {
-            background-color: #16a34a;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .cursor-pointer {
-            cursor: pointer;
-        }
-
-        canvas {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            touch-action: none;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-
-        .gap-2 {
-            gap: 0.5rem;
-        }
-
-        kbd {
-            padding: 0.25rem 0.5rem;
-            background-color: #e5e7eb;
-            border-radius: 0.25rem;
-            font-family: monospace;
-        }
-
-        /* Mobile Responsive Styles */
-        @media (max-width: 768px) {
-            body {
-                padding: 0;
-                overflow-x: hidden;
-            }
-
-            .min-h-screen {
-                padding: 0;
-            }
-
-            .bg-white {
-                border-radius: 0;
-                box-shadow: none;
-            }
-
-            .max-w-4xl {
-                max-width: 100%;
-                margin: 0;
-            }
-
-            .text-4xl {
-                font-size: 1.25rem;
-                margin-bottom: 0.5rem;
-            }
-
-            .text-3xl {
-                font-size: 1.125rem;
-            }
-
-            .text-xl {
-                font-size: 0.95rem;
-            }
-
-            .text-lg {
-                font-size: 0.9rem;
-            }
-
-            .p-8 {
-                padding: 0.75rem;
-            }
-
-            .p-6 {
-                padding: 0.5rem;
-            }
-
-            .p-4 {
-                padding: 0.25rem;
-            }
-
-            .px-8 {
-                padding-left: 0.75rem;
-                padding-right: 0.75rem;
-            }
-
-            .px-6 {
-                padding-left: 0.5rem;
-                padding-right: 0.5rem;
-            }
-
-            .py-4 {
-                padding-top: 0.5rem;
-                padding-bottom: 0.5rem;
-            }
-
-            .mb-6 {
-                margin-bottom: 0.5rem;
-                font-size: 0.8rem;
-            }
-
-            canvas {
-                width: 100% !important;
-                height: auto !important;
-                max-width: 100% !important;
-                border-radius: 0 !important;
-            }
-
-            kbd {
-                display: none;
-            }
-
-            .desktop-only {
-                display: none !important;
-            }
-
-            .mobile-only {
-                display: block !important;
-            }
-
-            .start-instructions {
-                max-width: 90%;
-                padding: 0.875rem;
-                margin-bottom: 1.5rem;
-            }
-
-            .start-instructions h3 {
-                font-size: 0.95rem;
-            }
-
-            .start-instructions ul {
-                font-size: 0.85rem;
-            }
-
-            .start-button {
-                font-size: 1.25rem;
-                padding: 1rem 2rem;
-            }
-
-            .game-over-modal {
-                width: 90%;
-                max-width: 320px;
-                padding: 1.25rem;
-            }
-
-            .game-over-title {
-                font-size: 1.5rem;
-            }
-
-            .game-over-distance {
-                font-size: 2rem;
-            }
-
-            .restart-button {
-                font-size: 1rem;
-                padding: 0.75rem 1.5rem;
-                width: 100%;
-            }
-
-            .canvas-container {
-                border-radius: 0 !important;
-                max-width: 100% !important;
-                width: 100% !important;
-                margin: 0 !important;
-            }
-
-            .border-4 {
-                border-width: 0;
-            }
-
-            .rounded-2xl {
-                border-radius: 0;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .text-4xl {
-                font-size: 1.125rem;
-            }
-
-            .text-3xl {
-                font-size: 1rem;
-            }
-
-            .text-xl {
-                font-size: 0.875rem;
-            }
-
-            .p-8 {
-                padding: 0.5rem;
-            }
-
-            .p-4 {
-                padding: 0.25rem;
-            }
-
-            button {
-                font-size: 1rem;
-                padding: 0.75rem 1.5rem;
-            }
-
-            .start-button {
-                font-size: 1.125rem;
-                padding: 0.875rem 1.75rem;
-            }
-
-            .game-over-distance {
-                font-size: 1.75rem;
-            }
-
-            .start-instructions {
-                padding: 0.75rem;
-                margin-bottom: 1.25rem;
-            }
-        }
-
-        /* Touch-friendly button styles */
-        .mobile-button {
-            min-height: 48px;
-            min-width: 100px;
+            font-family: 'Inter', sans-serif;
             touch-action: manipulation;
-        }
-
-        /* Hide mobile-only on desktop */
-        .mobile-only {
-            display: none;
-        }
-
-        /* Show desktop-only by default */
-        .desktop-only {
-            display: list-item;
-        }
-
-        /* Landscape mode para mobile */
-        @media (max-width: 768px) and (orientation: landscape) {
-            .p-8 {
-                padding: 0.25rem;
-            }
-
-            .mb-6 {
-                margin-bottom: 0.25rem;
-            }
-
-            .text-4xl {
-                font-size: 1rem;
-                margin-bottom: 0.25rem;
-            }
-
-            canvas {
-                max-height: 90vh !important;
-                width: 100% !important;
-            }
-
-            .start-overlay {
-                padding: 0.5rem;
-            }
-
-            .start-instructions {
-                padding: 0.5rem;
-                margin-bottom: 0.75rem;
-            }
-
-            .start-instructions h3 {
-                font-size: 0.875rem;
-                margin-bottom: 0.375rem;
-            }
-
-            .start-instructions ul {
-                font-size: 0.75rem;
-            }
-
-            .start-button {
-                font-size: 0.95rem;
-                padding: 0.625rem 1.25rem;
-            }
-
-            .game-over-modal {
-                max-width: 280px;
-                padding: 0.875rem;
-            }
-
-            .game-over-title {
-                font-size: 1.125rem;
-            }
-
-            .game-over-distance {
-                font-size: 1.375rem;
-            }
-        }
-
-        /* Portrait mode para mobile */
-        @media (max-width: 768px) and (orientation: portrait) {
-            canvas {
-                width: 100% !important;
-                height: auto !important;
-                max-height: 50vh;
-            }
-
-            .canvas-container {
-                width: 100vw !important;
-                margin-left: calc(-50vw + 50%) !important;
-            }
-        }
-
-        /* Extra small screens */
-        @media (max-width: 360px) {
-            .start-button {
-                font-size: 1rem;
-                padding: 0.75rem 1.25rem;
-            }
-
-            .game-over-modal {
-                width: 95%;
-                padding: 1rem;
-            }
-
-            .text-4xl {
-                font-size: 1.125rem;
-            }
-        }
-
-        /* Touch feedback */
-        @media (hover: none) and (pointer: coarse) {
-            button:active {
-                transform: scale(0.95);
-            }
-
-            canvas:active {
-                opacity: 0.9;
-            }
-        }
-
-        /* Indicador de toque no canvas */
-        .touch-indicator {
-            position: absolute;
-            pointer-events: none;
-            background: radial-gradient(circle, rgba(34, 197, 94, 0.4) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: touchPulse 0.6s ease-out;
-        }
-
-        @keyframes touchPulse {
-            0% {
-                transform: scale(0);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(2);
-                opacity: 0;
-            }
-        }
-
-        /* Aviso de orientação */
-        .orientation-warning {
-            display: none;
+            overflow: hidden;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(251, 146, 60, 0.95);
-            color: white;
-            padding: 0.75rem;
-            text-align: center;
-            font-size: 0.875rem;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-
-        @media (max-width: 768px) and (orientation: portrait) and (min-height: 500px) {
-            .orientation-warning {
-                display: none;
-            }
-        }
-
-        /* Video background responsive */
-        .video-background {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: -1;
-            opacity: 0.4;
-        }
-
-        @media (max-width: 768px) {
-            .video-background {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-        }
-
-        .bg-gradient-to-r {
-            background: linear-gradient(to right, #facc15, #fb923c);
-        }
-
-        .bg-gray-100:hover {
-            background-color: #f3f4f6;
-        }
-
-        svg {
-            display: inline-block;
-            vertical-align: middle;
-        }
-
-        .game-over-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            animation: fadeIn 0.3s ease-in;
         }
-
-        .game-over-modal {
-            background: linear-gradient(135deg, #facc15, #fb923c);
-            border-radius: 1rem;
-            padding: 2rem;
-            max-width: 380px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            animation: scaleIn 0.3s ease-out;
-        }
-
-        @keyframes scaleIn {
-            from {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .game-over-title {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .game-over-emoji {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+        canvas {
             display: block;
-        }
-
-        .game-over-stats {
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 0.75rem;
-            padding: 1rem;
-            margin: 1rem 0;
-            backdrop-filter: blur(10px);
-        }
-
-        .game-over-distance {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: white;
-            margin: 0.25rem 0;
-        }
-
-        .game-over-label {
-            font-size: 1rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 0.25rem;
-        }
-
-        .restart-button {
-            background: white;
-            color: #fb923c;
-            font-weight: bold;
-            font-size: 1.1rem;
-            padding: 0.75rem 2rem;
-            border-radius: 0.5rem;
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.2s;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .restart-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-            background: #f9fafb;
-        }
-
-        .start-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
+            background: #87CEEB; /* Cor do céu */
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-            border-radius: 0.5rem;
-        }
-
-        .start-button {
-            background: linear-gradient(135deg, #22c55e, #16a34a);
-            color: white;
-            font-weight: bold;
-            font-size: 1.5rem;
-            padding: 1.25rem 3rem;
-            border-radius: 0.75rem;
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            transition: all 0.2s;
-            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
-        }
-
-        .start-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(34, 197, 94, 0.5);
-        }
-
-        .start-instructions {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 1.5rem;
-            border-radius: 0.75rem;
-            margin-bottom: 2rem;
-            max-width: 400px;
-        }
-
-        .canvas-container {
-            position: relative;
-            display: inline-block;
         }
     </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div id="root"></div>
+<body class="bg-gray-800 flex items-center justify-center h-screen w-screen m-0 p-0">
 
-    <script type="text/babel">
-        const { useState, useEffect, useRef } = React;
+    <div id="game-container" class="w-full h-full relative">
+        <!-- Vídeo de fundo oculto -->
+        <video id="backgroundVideo" style="display: none;" loop playsinline>
+            <source src="assets/indio.mp4" type="video/mp4">
+        </video>
+        
+        <canvas id="gameCanvas"></canvas>
+        
+        <!-- Tela Inicial e de Seleção --><div id="startScreen" class="absolute inset-0 bg-black bg-opacity-60 flex flex-col items-center justify-center text-white p-4">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 text-center">Corrida Maluca</h1>
+            <p class="text-lg md:text-xl mb-6 text-center">Prepare-se para correr!</p>
+            
+            <div class="mb-8">
+                <h2 class="text-2xl mb-4">Seu Personagem:</h2>
+                <div class="flex justify-center">
+                    <div class="bg-orange-400 rounded-full w-20 h-20 md:w-24 md:h-24 flex items-center justify-center border-4 border-blue-400 overflow-hidden shadow-lg">
+                        <img src="assets/cabeca.png" alt="Cabeça" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
 
-        // Ícones SVG
-        const Upload = ({ className }) => (
-            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-            </svg>
-        );
+            <button id="startButton" class="bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-lg text-2xl shadow-lg transition transform hover:scale-105">
+                Iniciar Jogo
+            </button>
+        </div>
 
-        const Play = ({ className }) => (
-            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-        );
+        <!-- Tela de Fim de Jogo --><div id="endScreen" class="absolute inset-0 bg-black bg-opacity-70 flex-col items-center justify-center text-white p-4 hidden">
+            <h2 id="endMessage" class="text-5xl font-bold mb-8"></h2>
+            <p id="finalScore" class="text-3xl mb-8"></p>
+            <button id="restartButton" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 px-8 rounded-lg text-2xl shadow-lg transition transform hover:scale-105">
+                Jogar Novamente
+            </button>
+        </div>
+    </div>
 
-        const RotateCcw = ({ className }) => (
-            <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-            </svg>
-        );
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const startScreen = document.getElementById('startScreen');
+        const endScreen = document.getElementById('endScreen');
+        const startButton = document.getElementById('startButton');
+        const restartButton = document.getElementById('restartButton');
+        const endMessage = document.getElementById('endMessage');
+        const finalScore = document.getElementById('finalScore');
+        const backgroundVideo = document.getElementById('backgroundVideo');
 
-        const CorridaApe = () => {
-            const canvasRef = useRef(null);
-            const videoRef = useRef(null);
-            const [gameState, setGameState] = useState('menu');
-            const [playerImage, setPlayerImage] = useState(null);
-            const [score, setScore] = useState(0);
-            const [gameTime, setGameTime] = useState(0);
-            const animationRef = useRef(null);
-            const gameDataRef = useRef({
-                playerY: 200,
-                playerVelocity: 0,
-                obstacles: [],
-                background: 0,
-                trees: [],
-                clouds: [],
-                distance: 0,
-                jumpPower: -12,
-                gravity: 0.6,
-                speed: 5,
-                isJumping: false
-            });
+        let player, obstacles, background, gameState, gameSpeed, score, finishLine, raceDistance, collectibles, floatingScores;
+        let headImage = null;
+        
+        // Precarrega a imagem da cabeça
+        headImage = new Image();
+        headImage.src = 'assets/cabeca.png';
+        
+        const GAME_DURATION_SECONDS = 60; // Duração da corrida
 
-            const GAME_DURATION = 30;
-            const DISTANCE_TO_CURITIBA = 60;
+        // --- Configurações do Jogo ---
+        const gravity = 0.6;
+        const jumpPower = -15;
+        const playerWidth = 50;
+        const playerHeight = 70;
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
 
-            // Função para ajustar canvas responsivo
-            const setupResponsiveCanvas = () => {
-                const canvas = canvasRef.current;
-                if (!canvas) return;
+        // --- Objetos do Jogo ---
+        class Player {
+            constructor() {
+                this.width = playerWidth;
+                this.height = playerHeight;
+                this.x = 100;
+                this.y = canvas.height - this.height - 50; // Inicia no chão
+                this.velocityY = 0;
+                this.isJumping = false;
+                this.animationFrame = 0; // Para a animação de corrida
+            }
 
-                const isMobile = window.innerWidth <= 768;
-                const container = canvas.parentElement;
-                const containerWidth = isMobile ? window.innerWidth : Math.min(800, container.offsetWidth);
-                const aspectRatio = 800 / 450;
+            draw() {
+                // Constantes de animação e estilo
+                const legMovement = this.isJumping ? 0 : Math.sin(this.animationFrame) * 0.4; // Ângulo em radianos
+                const armMovement = this.isJumping ? 0 : Math.cos(this.animationFrame) * 0.4; // Ângulo em radianos
+                const skinTone = '#e0ac69';
+                const pantsColor = '#2d3748';
+                const shoeColor = '#ffffff';
+                const sleeveColor = '#00003c';
 
-                // Manter proporção do canvas
-                const canvasWidth = containerWidth;
-                const canvasHeight = canvasWidth / aspectRatio;
+                // Salva o contexto para transformações limpas
+                ctx.save();
+                // Move a origem para a base do jogador para facilitar o desenho
+                ctx.translate(this.x, this.y);
 
-                // Configurar canvas
-                canvas.width = 800;
-                canvas.height = 450;
+                // --- Braço de Trás ---
+                ctx.save();
+                ctx.translate(this.width * 0.7, 10); // Pivô do ombro
+                ctx.rotate(armMovement);
+                // Braço (manga)
+                ctx.fillStyle = sleeveColor;
+                ctx.fillRect(-5, 0, 10, 20);
+                // Antebraço
+                ctx.fillStyle = skinTone;
+                ctx.fillRect(-4, 18, 8, 18);
+                // Mão
+                ctx.beginPath();
+                ctx.arc(0, 36, 6, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+
+                // --- Perna de Trás ---
+                ctx.save();
+                ctx.translate(this.width * 0.6, this.height - 10); // Pivô do quadril
+                ctx.rotate(legMovement);
+                // Coxa
+                ctx.fillStyle = pantsColor;
+                ctx.fillRect(-7, 0, 14, 25);
+                // Panturrilha
+                ctx.fillRect(-6, 23, 12, 22);
+                // Tênis
+                ctx.fillStyle = shoeColor;
+                ctx.beginPath();
+                ctx.moveTo(-5, 45); // calcanhar
+                ctx.lineTo(10, 45); // sola
+                ctx.lineTo(15, 40); // topo do tênis
+                ctx.lineTo(0, 40); // peito do pé
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+
+                // --- Torso ---
+                const bodyHeight = this.height - 10;
+                const shoulderWidth = this.width;
+                const waistWidth = this.width * 0.75;
+                const waistXOffset = (shoulderWidth - waistWidth) / 2;
+
+                // Base do torso
+                ctx.fillStyle = '#00003c';
+                ctx.beginPath();
+                ctx.moveTo(waistXOffset, bodyHeight); // cintura inferior esquerda
+                ctx.lineTo(0, 0); // ombro superior esquerdo
+                ctx.lineTo(shoulderWidth, 0); // ombro superior direito
+                ctx.lineTo(shoulderWidth - waistXOffset, bodyHeight); // cintura inferior direita
+                ctx.closePath();
+                ctx.fill();
+
+                // Sombra para dar forma
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+                ctx.beginPath();
+                ctx.moveTo(this.width / 2, 0);
+                ctx.lineTo(shoulderWidth, 0);
+                ctx.lineTo(shoulderWidth - waistXOffset, bodyHeight);
+                ctx.lineTo(this.width / 2, bodyHeight * 0.9);
+                ctx.closePath();
+                ctx.fill();
                 
-                // Ajustar CSS para responsividade
-                canvas.style.width = `${canvasWidth}px`;
-                canvas.style.height = `${canvasHeight}px`;
-                
-                // Em mobile, garantir 100% de largura
-                if (isMobile) {
-                    canvas.style.width = '100%';
-                    canvas.style.maxWidth = '100%';
+                // Luz para dar forma
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+                 ctx.beginPath();
+                ctx.moveTo(this.width / 2, 0);
+                ctx.lineTo(0, 0);
+                ctx.lineTo(waistXOffset, bodyHeight);
+                ctx.lineTo(this.width / 2, bodyHeight * 0.9);
+                ctx.closePath();
+                ctx.fill();
+
+
+                // Texto na camisa
+                ctx.fillStyle = '#00d26e';
+                ctx.font = 'bold 18px Inter';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('Mogo', this.width / 2, bodyHeight / 2);
+
+                // --- Perna da Frente ---
+                ctx.save();
+                ctx.translate(this.width * 0.4, this.height - 10); // Pivô do quadril
+                ctx.rotate(-legMovement);
+                // Coxa
+                ctx.fillStyle = pantsColor;
+                ctx.fillRect(-7, 0, 14, 25);
+                // Panturrilha
+                ctx.fillRect(-6, 23, 12, 22);
+                // Tênis
+                ctx.fillStyle = shoeColor;
+                ctx.beginPath();
+                ctx.moveTo(-5, 45); // calcanhar
+                ctx.lineTo(10, 45); // sola
+                ctx.lineTo(15, 40); // topo do tênis
+                ctx.lineTo(0, 40); // peito do pé
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+
+                // --- Braço da Frente ---
+                ctx.save();
+                ctx.translate(this.width * 0.3, 10); // Pivô do ombro
+                ctx.rotate(-armMovement);
+                // Braço (manga)
+                ctx.fillStyle = sleeveColor;
+                ctx.fillRect(-5, 0, 10, 20);
+                // Antebraço
+                ctx.fillStyle = skinTone;
+                ctx.fillRect(-4, 18, 8, 18);
+                // Mão
+                ctx.beginPath();
+                ctx.arc(0, 36, 6, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+
+                // --- Cabeça ---
+                if (headImage) {
+                    // Desenha a imagem da cabeça
+                    const headSize = this.width * 1.2;
+                    ctx.drawImage(headImage, this.width / 2 - headSize / 2, -headSize * 0.8, headSize, headSize);
                 }
-            };
-
-            useEffect(() => {
-                setupResponsiveCanvas();
                 
-                // Reajustar quando a janela mudar de tamanho
-                const handleResize = () => {
-                    setupResponsiveCanvas();
-                };
+                // Restaura o contexto principal
+                ctx.restore();
+            }
 
-                window.addEventListener('resize', handleResize);
-                window.addEventListener('orientationchange', handleResize);
-
-                return () => {
-                    window.removeEventListener('resize', handleResize);
-                    window.removeEventListener('orientationchange', handleResize);
-                };
-            }, []);
-
-            useEffect(() => {
-                // Carregar imagem da cabeça
-                const img = new Image();
-                img.onload = () => setPlayerImage(img);
-                img.src = 'assets/cabeca.png';
-
-                // Configurar vídeo - iniciar sem som primeiro
-                const video = videoRef.current;
-                if (video) {
-                    video.loop = true;
-                    video.muted = true; // Iniciar sem som para permitir autoplay
-                    video.volume = 0.5;
-                    video.play().catch(e => console.log('Erro ao reproduzir vídeo:', e));
+            update(groundY) {
+                if (!this.isJumping) {
+                    this.animationFrame += 0.25;
                 }
+                // Aplicar gravidade
+                this.velocityY += gravity;
+                this.y += this.velocityY;
 
-                // Prevenir zoom no double tap em mobile
-                let lastTouchEnd = 0;
-                const preventZoom = (e) => {
-                    const now = Date.now();
-                    if (now - lastTouchEnd <= 300) {
-                        e.preventDefault();
-                    }
-                    lastTouchEnd = now;
-                };
-                
-                document.addEventListener('touchend', preventZoom, { passive: false });
-                
-                return () => {
-                    document.removeEventListener('touchend', preventZoom);
-                };
-            }, []);
+                // Colisão com o chão
+                if (this.y + this.height > groundY) {
+                    this.y = groundY - this.height;
+                    this.velocityY = 0;
+                    this.isJumping = false;
+                }
+            }
 
-            useEffect(() => {
-                const canvas = canvasRef.current;
-                if (!canvas) return;
+            jump() {
+                if (!this.isJumping) {
+                    this.velocityY = jumpPower;
+                    this.isJumping = true;
+                }
+            }
+        }
+        
+        class Collectible {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.width = 35;
+                this.height = 35;
+                this.collected = false;
+                this.animationFrame = Math.random() * Math.PI * 2; // Início aleatório para pulsar diferente
+            }
 
-                const ctx = canvas.getContext('2d');
-                const game = gameDataRef.current;
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
 
-                if (game.trees.length === 0) {
-                    for (let i = 0; i < 10; i++) {
-                        game.trees.push({
-                            x: i * 200,
-                            height: 60 + Math.random() * 40,
-                            type: Math.random() > 0.5 ? 'pine' : 'round'
+                // Círculo pulsante atrás da banana
+                const pulseRadius = 20 + Math.sin(this.animationFrame) * 5;
+                const pulseOpacity = 0.6 + Math.sin(this.animationFrame) * 0.3;
+                ctx.fillStyle = `rgba(255, 222, 52, ${pulseOpacity})`;
+                ctx.beginPath();
+                ctx.arc(this.width / 2, this.height / 2, pulseRadius, 0, Math.PI * 2);
+                ctx.fill();
+
+
+                // Desenho da banana
+                ctx.fillStyle = '#FFDE34'; // Cor da banana
+                ctx.strokeStyle = '#B39B2A'; // Contorno
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(5, 20);
+                ctx.quadraticCurveTo(15, 0, 30, 15);
+                ctx.quadraticCurveTo(15, 35, 5, 20);
+                ctx.fill();
+                ctx.stroke();
+
+                // Caule
+                ctx.fillStyle = '#6E4513';
+                ctx.fillRect(0, 15, 8, 5);
+                ctx.restore();
+            }
+
+            update() {
+                this.x -= gameSpeed;
+                this.animationFrame += 0.1;
+            }
+        }
+
+        class FloatingScore {
+            constructor(x, y, text) {
+                this.x = x;
+                this.y = y;
+                this.text = text;
+                this.life = 60; // Dura 1 segundo (a 60fps)
+                this.opacity = 1;
+            }
+
+            update() {
+                this.y -= 0.8; // Sobe lentamente
+                this.life--;
+                if (this.life < 30) {
+                    this.opacity = this.life / 30; // Desaparece nos últimos 0.5s
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = '#00d26e';
+                ctx.font = 'bold 22px Inter';
+                ctx.textAlign = 'center';
+                ctx.shadowColor = 'black';
+                ctx.shadowBlur = 4;
+                ctx.fillText(this.text, this.x, this.y);
+                ctx.restore();
+            }
+        }
+
+        class Background {
+            constructor() {
+                this.groundHeight = 50;
+                this.grassHeight = 30; // Altura da grama
+                this.totalDistance = 0;
+                this.raceDistance = 0;
+
+                // Elementos da paisagem
+                this.sun = { x: 100, y: 100, radius: 50 };
+                this.clouds = this.generateClouds(8, 0, canvas.width * 2, 50, 150);
+                this.mountains = this.generateItems(3, 0, canvas.width, canvas.height - 200, canvas.height - 100, 300, 200);
+                this.buildings = this.generateItems(10, 0, this.raceDistance, canvas.height - 300, canvas.height - 150, 150, 80);
+                this.trees = this.generateItems(15, 0, this.raceDistance, 20, 50, 50, 30);
+            }
+            
+            setRaceDistance(distance) {
+                this.raceDistance = distance;
+                // Regenerar itens com base na distância da corrida
+                this.buildings = this.generateItems(20, 0, this.raceDistance, canvas.height - 350, canvas.height - 150, 150, 80);
+                this.trees = this.generateItems(30, 0, this.raceDistance, 20, 50, 70, 40);
+            }
+
+            generateClouds(count, minX, maxX, minY, maxY) {
+                const clouds = [];
+                for (let i = 0; i < count; i++) {
+                    const cloud = {
+                        x: minX + Math.random() * (maxX - minX),
+                        y: minY + Math.random() * (maxY - minY),
+                        parts: []
+                    };
+                    const numParts = 3 + Math.floor(Math.random() * 4);
+                    const baseRadius = 15 + Math.random() * 25;
+                    for (let j = 0; j < numParts; j++) {
+                        cloud.parts.push({
+                            dx: (Math.random() - 0.5) * baseRadius * 2.5,
+                            dy: (Math.random() - 0.5) * baseRadius * 0.6,
+                            radius: baseRadius * (0.7 + Math.random() * 0.6)
                         });
                     }
+                    clouds.push(cloud);
                 }
+                return clouds;
+            }
 
-                if (game.clouds.length === 0) {
-                    for (let i = 0; i < 5; i++) {
-                        game.clouds.push({
-                            x: Math.random() * 800,
-                            y: 30 + Math.random() * 80,
-                            size: 40 + Math.random() * 30,
-                            speed: 0.5 + Math.random() * 0.5
-                        });
+            generateItems(count, minX, maxX, minY, maxY, maxWidth, minWidth) {
+                const items = [];
+                for (let i = 0; i < count; i++) {
+                    const item = {
+                        x: minX + Math.random() * (maxX - minX),
+                        y: minY + Math.random() * (maxY - minY),
+                        width: minWidth + Math.random() * (maxWidth - minWidth),
+                        height: minWidth + Math.random() * (maxWidth - minWidth) * 1.5,
+                        color: `hsl(${Math.random() * 30 + 190}, 50%, ${60 + Math.random() * 10}%)`, // Tons de azul/cinza para montanhas/prédios
+                        outdoorText: ['MOGO', 'RUN!', 'GO!', 'JUMP!'][Math.floor(Math.random() * 4)],
+                        windowStates: [] // Propriedade para guardar o estado das janelas
+                    };
+
+                    // Pré-calcula o estado de cada janela (acesa/apagada) uma única vez
+                    const windowSize = item.width / 5;
+                    const windowMargin = windowSize / 2;
+                    for (let yPos = item.y + windowMargin; yPos < canvas.height - this.groundHeight - this.grassHeight - windowSize; yPos += (windowSize + windowMargin)) {
+                        const rowStates = [];
+                        for (let xPos = windowMargin; xPos < item.width - windowSize; xPos += (windowSize + windowMargin)) {
+                            rowStates.push(Math.random() > 0.4); // true = acesa, false = apagada
+                        }
+                        item.windowStates.push(rowStates);
                     }
+                    items.push(item);
                 }
+                return items;
+            }
 
-                const drawBackground = () => {
-                    // Desenhar vídeo de fundo com opacidade
-                    const video = videoRef.current;
-                    if (video && video.readyState >= 2) {
-                        ctx.globalAlpha = 0.4;
-                        ctx.drawImage(video, 0, 0, 800, 450);
-                        ctx.globalAlpha = 1.0;
-                    }
+            draw() {
+                // Céu (já é o fundo do canvas)
+                
+                // Vídeo de fundo com transparência
+                if (backgroundVideo && backgroundVideo.readyState >= 2) {
+                    ctx.save();
+                    ctx.globalAlpha = 0.4; // Transparência do vídeo (40% opaco)
+                    ctx.drawImage(backgroundVideo, 0, 0, canvas.width, canvas.height);
+                    ctx.restore();
+                }
+                
+                // Sol
+                ctx.fillStyle = 'yellow';
+                ctx.beginPath();
+                ctx.arc(this.sun.x, this.sun.y, this.sun.radius, 0, Math.PI * 2);
+                ctx.fill();
+                // Efeito de brilho no sol
+                const gradient = ctx.createRadialGradient(this.sun.x, this.sun.y, this.sun.radius * 0.8, this.sun.x, this.sun.y, this.sun.radius * 1.5);
+                gradient.addColorStop(0, 'rgba(255, 255, 0, 0.7)');
+                gradient.addColorStop(1, 'rgba(255, 255, 0, 0)');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                    // Gradiente do céu por cima do vídeo
-                    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-                    gradient.addColorStop(0, 'rgba(135, 206, 235, 0.5)');
-                    gradient.addColorStop(1, 'rgba(224, 246, 255, 0.5)');
-                    ctx.fillStyle = gradient;
-                    ctx.fillRect(0, 0, 800, 400);
 
-                    game.clouds.forEach(cloud => {
-                        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-                        ctx.beginPath();
-                        ctx.arc(cloud.x, cloud.y, cloud.size, 0, Math.PI * 2);
-                        ctx.arc(cloud.x + cloud.size * 0.6, cloud.y, cloud.size * 0.8, 0, Math.PI * 2);
-                        ctx.arc(cloud.x + cloud.size * 1.2, cloud.y, cloud.size * 0.7, 0, Math.PI * 2);
-                        ctx.fill();
+                // Nuvens
+                this.clouds.forEach(cloud => {
+                    const parallaxSpeed = 0.05;
+                    const wrapWidth = canvas.width + 400;
+                    const screenX = ((cloud.x - this.totalDistance * parallaxSpeed) % wrapWidth + wrapWidth) % wrapWidth - 200;
+
+                    ctx.beginPath();
+                    cloud.parts.forEach(part => {
+                        ctx.moveTo(screenX + part.dx, cloud.y + part.dy);
+                        ctx.arc(screenX + part.dx, cloud.y + part.dy, part.radius, 0, Math.PI * 2);
                     });
-
-                    ctx.fillStyle = '#9370DB';
-                    ctx.beginPath();
-                    ctx.moveTo(-50 - (game.background * 0.3) % 900, 280);
-                    ctx.lineTo(100 - (game.background * 0.3) % 900, 200);
-                    ctx.lineTo(250 - (game.background * 0.3) % 900, 250);
-                    ctx.lineTo(400 - (game.background * 0.3) % 900, 180);
-                    ctx.lineTo(550 - (game.background * 0.3) % 900, 240);
-                    ctx.lineTo(700 - (game.background * 0.3) % 900, 200);
-                    ctx.lineTo(850 - (game.background * 0.3) % 900, 280);
-                    ctx.lineTo(850, 400);
-                    ctx.lineTo(-50, 400);
+                    ctx.closePath();
+                    // Gradiente para dar volume
+                    const cloudGradient = ctx.createRadialGradient(screenX + cloud.parts[0].dx, cloud.y + cloud.parts[0].dy, 0, screenX + cloud.parts[0].dx, cloud.y + cloud.parts[0].dy, cloud.parts[0].radius * 2);
+                    cloudGradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+                    cloudGradient.addColorStop(1, 'rgba(230, 230, 230, 0.8)');
+                    ctx.fillStyle = cloudGradient;
                     ctx.fill();
+                });
+                
+                // Montanhas (paralaxe lento)
+                this.mountains.forEach(m => {
+                    const screenX = m.x - (this.totalDistance * 0.1);
+                    const mountainBaseY = canvas.height - this.groundHeight - this.grassHeight;
 
-                    // Segunda camada de montanhas para continuidade
-                    ctx.beginPath();
-                    ctx.moveTo(850 - (game.background * 0.3) % 900, 280);
-                    ctx.lineTo(1000 - (game.background * 0.3) % 900, 200);
-                    ctx.lineTo(1150 - (game.background * 0.3) % 900, 250);
-                    ctx.lineTo(1300 - (game.background * 0.3) % 900, 180);
-                    ctx.lineTo(1450 - (game.background * 0.3) % 900, 240);
-                    ctx.lineTo(1600 - (game.background * 0.3) % 900, 200);
-                    ctx.lineTo(1750 - (game.background * 0.3) % 900, 280);
-                    ctx.lineTo(1750, 400);
-                    ctx.lineTo(850, 400);
-                    ctx.fill();
-
-                    ctx.fillStyle = '#5A5A5A';
-                    ctx.fillRect(0, 320, 800, 80);
-
-                    ctx.fillStyle = '#FFD700';
-                    for (let i = 0; i < 10; i++) {
-                        let x = (i * 100 - game.background) % 1000;
-                        if (x < -100) x += 1000;
-                        if (x > 800) continue;
-                        if (x < -100) continue;
-                        ctx.fillRect(x, 355, 60, 6);
-                    }
-
-                    ctx.fillStyle = '#228B22';
-                    ctx.fillRect(0, 280, 800, 40);
-                    ctx.fillRect(0, 400, 800, 50);
-
-                    game.trees.forEach(tree => {
-                        let treeX = tree.x - game.background;
-                        
-                        // Reciclar árvores: quando saem pela esquerda, voltam pela direita
-                        while (treeX < -100) {
-                            treeX += 2000;
-                        }
-                        while (treeX > 1900) {
-                            treeX -= 2000;
-                        }
-                        
-                        if (treeX > -100 && treeX < 900) {
-                            if (tree.type === 'pine') {
-                                // Pinheiro - desenhar folhas primeiro
-                                ctx.fillStyle = '#0F5B0F';
-                                // Camada inferior das folhas
-                                ctx.beginPath();
-                                ctx.moveTo(treeX, 280 - tree.height);
-                                ctx.lineTo(treeX - 25, 280 - tree.height + 35);
-                                ctx.lineTo(treeX + 25, 280 - tree.height + 35);
-                                ctx.closePath();
-                                ctx.fill();
-                                // Camada superior das folhas
-                                ctx.beginPath();
-                                ctx.moveTo(treeX, 280 - tree.height - 20);
-                                ctx.lineTo(treeX - 30, 280 - tree.height + 20);
-                                ctx.lineTo(treeX + 30, 280 - tree.height + 20);
-                                ctx.closePath();
-                                ctx.fill();
-                                // Tronco por cima
-                                ctx.fillStyle = '#654321';
-                                ctx.fillRect(treeX - 8, 280 - tree.height + 30, 16, tree.height - 30);
-                            } else {
-                                ctx.fillStyle = '#654321';
-                                ctx.fillRect(treeX - 6, 280 - tree.height, 12, tree.height);
-                                ctx.fillStyle = '#228B22';
-                                ctx.beginPath();
-                                ctx.arc(treeX, 280 - tree.height, 25, 0, Math.PI * 2);
-                                ctx.fill();
-                                ctx.beginPath();
-                                ctx.arc(treeX - 15, 280 - tree.height + 10, 20, 0, Math.PI * 2);
-                                ctx.fill();
-                                ctx.beginPath();
-                                ctx.arc(treeX + 15, 280 - tree.height + 10, 20, 0, Math.PI * 2);
-                                ctx.fill();
-                            }
-                        }
-                    });
-
-                    // Desenhar cidade de Curitiba quando estiver próximo do final
-                    if (game.distance >= DISTANCE_TO_CURITIBA - 50) {
-                        // Usar background para movimento consistente com outros elementos
-                        const distanceFromEnd = DISTANCE_TO_CURITIBA - game.distance;
-                        const cityX = 800 - (50 - distanceFromEnd) * (game.speed * 20);
-                        
-                        // Prédios
-                        const buildings = [
-                            { x: cityX + 50, width: 60, height: 120, color: '#4A5568' },
-                            { x: cityX + 120, width: 50, height: 150, color: '#2D3748' },
-                            { x: cityX + 180, width: 70, height: 100, color: '#4A5568' },
-                            { x: cityX + 260, width: 55, height: 140, color: '#1A202C' },
-                            { x: cityX + 325, width: 65, height: 110, color: '#2D3748' },
-                            { x: cityX + 400, width: 50, height: 130, color: '#4A5568' }
-                        ];
-
-                        buildings.forEach(building => {
-                            if (building.x < 850 && building.x > -100) {
-                                // Prédio
-                                ctx.fillStyle = building.color;
-                                ctx.fillRect(building.x, 280 - building.height, building.width, building.height);
-                                
-                                // Janelas
-                                ctx.fillStyle = '#FFD700';
-                                for (let row = 0; row < Math.floor(building.height / 15); row++) {
-                                    for (let col = 0; col < Math.floor(building.width / 12); col++) {
-                                        if (Math.random() > 0.3) { // Algumas janelas apagadas
-                                            ctx.fillRect(
-                                                building.x + 5 + col * 12,
-                                                280 - building.height + 10 + row * 15,
-                                                8,
-                                                10
-                                            );
-                                        }
-                                    }
-                                }
-                            }
-                        });
-
-                        // Outdoor piscante "Curitiba"
-                        const outdoorX = cityX + 200;
-                        if (outdoorX < 850 && outdoorX > -200) {
-                            // Poste do outdoor
-                            ctx.fillStyle = '#8B4513';
-                            ctx.fillRect(outdoorX + 45, 200, 10, 80);
-                            
-                            // Placa do outdoor
-                            const blink = Math.floor(Date.now() / 500) % 2 === 0;
-                            ctx.fillStyle = blink ? '#00d26e' : '#00a859';
-                            ctx.fillRect(outdoorX, 160, 100, 40);
-                            
-                            // Borda
-                            ctx.strokeStyle = '#FFD700';
-                            ctx.lineWidth = 3;
-                            ctx.strokeRect(outdoorX, 160, 100, 40);
-                            
-                            // Texto "Curitiba"
-                            ctx.fillStyle = blink ? '#FFFFFF' : '#E0E0E0';
-                            ctx.font = 'bold 16px Arial';
-                            ctx.textAlign = 'center';
-                            ctx.textBaseline = 'middle';
-                            ctx.fillText('Curitiba', outdoorX + 50, 180);
-                        }
-                    }
-                };
-
-                const drawPlayer = () => {
-                    const x = 150;
-                    const y = game.playerY;
-
-                    // Sombra
-                    ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-                    ctx.beginPath();
-                    ctx.ellipse(x + 10, 315, 25, 8, 0, 0, Math.PI * 2);
-                    ctx.fill();
-
-                    const bounce = Math.sin(Date.now() / 100) * 5;
+                    // Cores da rocha
+                    const rockColorBase = '#6B7280'; // Um cinza base, como a rua
+                    const rockColorShadow = '#4A5568'; // Um cinza mais escuro para sombra
                     
-                    // Pernas (calça azul)
-                    ctx.fillStyle = '#2C5F8D';
-                    // Perna esquerda
+                    // Desenha o corpo principal da montanha
                     ctx.beginPath();
-                    if (ctx.roundRect) {
-                        ctx.roundRect(x - 8, y + 25, 12, 20, 3);
-                    } else {
-                        ctx.fillRect(x - 8, y + 25, 12, 20);
-                    }
-                    ctx.fill();
-                    // Perna direita com movimento
-                    ctx.beginPath();
-                    if (ctx.roundRect) {
-                        ctx.roundRect(x + 6, y + 25 + bounce, 12, 20 - bounce, 3);
-                    } else {
-                        ctx.fillRect(x + 6, y + 25 + bounce, 12, 20 - bounce);
-                    }
+                    ctx.moveTo(screenX, mountainBaseY);
+                    ctx.lineTo(screenX + m.width / 2, m.y);
+                    ctx.lineTo(screenX + m.width, mountainBaseY);
+                    ctx.closePath();
+                    ctx.fillStyle = rockColorBase;
                     ctx.fill();
 
-                    // Corpo - camisa azul escura formato mais anatômico
-                    ctx.fillStyle = '#00003c';
+                    // Adiciona uma "sombra" para dar profundidade, de forma controlada
                     ctx.beginPath();
-                    // Torso trapezoidal (ombros mais largos)
-                    ctx.moveTo(x - 18, y + 5);
-                    ctx.lineTo(x - 12, y + 28);
-                    ctx.lineTo(x + 22, y + 28);
-                    ctx.lineTo(x + 28, y + 5);
-                    ctx.quadraticCurveTo(x + 5, y - 2, x - 18, y + 5);
+                    ctx.moveTo(screenX + m.width / 2, m.y); // Começa do pico
+                    ctx.lineTo(screenX, mountainBaseY); // Vai para a base esquerda
+                    ctx.lineTo(screenX + m.width / 3.5, mountainBaseY); // Ponto intermediário na base
+                    ctx.closePath();
+                    ctx.fillStyle = rockColorShadow;
                     ctx.fill();
+                });
 
-                    // Texto "mogo" na camisa
-                    ctx.fillStyle = '#00d26e';
-                    ctx.font = 'bold 11px Arial';
+                // Prédios (paralaxe médio)
+                this.buildings.forEach(b => {
+                    const screenX = b.x - (this.totalDistance * 0.4) % (this.raceDistance + canvas.width);
+                    ctx.fillStyle = '#4A5568';
+                    ctx.fillRect(screenX, b.y, b.width, canvas.height - b.y - this.groundHeight - this.grassHeight);
+
+                    // Adicionar janelas (acesas e apagadas)
+                    const windowSize = b.width / 5;
+                    const windowMargin = windowSize / 2;
+                    let rowIndex = 0;
+                    for (let yPos = b.y + windowMargin; yPos < canvas.height - this.groundHeight - this.grassHeight - windowSize; yPos += (windowSize + windowMargin)) {
+                        let colIndex = 0;
+                        for (let xPos = screenX + windowMargin; xPos < screenX + b.width - windowSize; xPos += (windowSize + windowMargin)) {
+                            // Usa o estado pré-definido em vez de Math.random()
+                            const isWindowOn = b.windowStates[rowIndex] && b.windowStates[rowIndex][colIndex];
+                            if (isWindowOn) {
+                                ctx.fillStyle = '#fefcbf'; // Luz amarela clara
+                            } else {
+                                ctx.fillStyle = '#2d3748'; // Janela escura
+                            }
+                            ctx.fillRect(xPos, yPos, windowSize, windowSize);
+                            colIndex++;
+                        }
+                        rowIndex++;
+                    }
+
+                    // Outdoor de LED no topo
+                    const outdoorHeight = 25;
+                    const outdoorY = b.y - outdoorHeight;
+                    // Painel
+                    ctx.fillStyle = '#111';
+                    ctx.fillRect(screenX, outdoorY, b.width, outdoorHeight);
+                    // "LEDs" com cor animada
+                    ctx.fillStyle = `hsl(${(this.totalDistance / 5 + b.x) % 360}, 100%, 60%)`;
+                    ctx.font = 'bold 20px monospace';
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
-                    ctx.fillText('mogo', x + 5, y + 16);
+                    ctx.fillText(b.outdoorText, screenX + b.width / 2, outdoorY + outdoorHeight / 2);
+                });
 
-                    // Braços (pele) - formato mais anatômico
-                    ctx.fillStyle = '#FFD1A4';
+                // Grama de fundo (camada de trás)
+                const grassY = canvas.height - this.groundHeight - this.grassHeight;
+                ctx.fillStyle = '#22c55e'; // Verde da grama
+                ctx.fillRect(0, grassY, canvas.width, this.grassHeight + this.groundHeight);
+                // Detalhes da grama
+                ctx.fillStyle = '#16a34a'; // Verde mais escuro para textura
+                for(let i = 0; i < canvas.width; i += 5) {
+                    ctx.fillRect(i, grassY + Math.random() * this.grassHeight, 2, Math.random() * 10);
+                }
+
+
+                // Árvores (sobre a grama)
+                 this.trees.forEach(t => {
+                    const screenX = t.x - this.totalDistance % (this.raceDistance + canvas.width);
+                    // A base da árvore fica no topo da grama
+                    const treeBaseY = canvas.height - this.groundHeight - this.grassHeight;
                     
-                    // Braço esquerdo
+                    // Tronco com textura
+                    const trunkX = screenX + t.width / 2 - 5;
+                    const trunkY = treeBaseY - t.height;
+                    const trunkWidth = 10;
+                    const trunkHeight = t.height;
+
+                    ctx.fillStyle = '#8B4513';
+                    ctx.fillRect(trunkX, trunkY, trunkWidth, trunkHeight);
+                    // Detalhes do tronco
+                    ctx.fillStyle = '#6e3c0c';
+                    ctx.fillRect(trunkX, trunkY + trunkHeight * 0.1, trunkWidth * 0.3, trunkHeight * 0.8);
+                    ctx.fillRect(trunkX + trunkWidth * 0.7, trunkY + trunkHeight * 0.3, trunkWidth * 0.3, trunkHeight * 0.6);
+
+                    // Folhas com mais detalhes
+                    ctx.fillStyle = '#228B22'; // Verde base
                     ctx.beginPath();
-                    ctx.moveTo(x - 18, y + 8);
-                    ctx.lineTo(x - 22 - bounce * 0.5, y + 18);
-                    ctx.lineTo(x - 20 - bounce * 0.5, y + 20);
-                    ctx.lineTo(x - 16, y + 10);
-                    ctx.closePath();
+                    ctx.arc(screenX + t.width / 2, treeBaseY - t.height - 10, t.width/2 + 5, 0, Math.PI * 2);
                     ctx.fill();
-                    // Mão esquerda
+                    // Detalhes das folhas (sombras)
+                    ctx.fillStyle = '#186a18'; // Verde mais escuro
                     ctx.beginPath();
-                    ctx.arc(x - 21 - bounce * 0.5, y + 20, 5, 0, Math.PI * 2);
+                    ctx.arc(screenX + t.width / 2 - t.width * 0.15, treeBaseY - t.height - 10 - t.width * 0.1, t.width * 0.3, 0, Math.PI * 2);
                     ctx.fill();
-                    
-                    // Braço direito
                     ctx.beginPath();
-                    ctx.moveTo(x + 28, y + 8);
-                    ctx.lineTo(x + 32 + bounce * 0.5, y + 18);
-                    ctx.lineTo(x + 30 + bounce * 0.5, y + 20);
-                    ctx.lineTo(x + 26, y + 10);
-                    ctx.closePath();
+                    ctx.arc(screenX + t.width / 2 + t.width * 0.15, treeBaseY - t.height - 10 + t.width * 0.1, t.width * 0.25, 0, Math.PI * 2);
                     ctx.fill();
-                    // Mão direita
-                    ctx.beginPath();
-                    ctx.arc(x + 31 + bounce * 0.5, y + 20, 5, 0, Math.PI * 2);
-                    ctx.fill();
+                });
 
-                    // Cabeça com imagem ou padrão
-                    if (playerImage) {
-                        ctx.save();
-                        ctx.beginPath();
-                        ctx.arc(x + 5, y - 10, 20, 0, Math.PI * 2);
-                        ctx.clip();
-                        ctx.drawImage(playerImage, x - 15, y - 30, 40, 40);
-                        ctx.restore();
-                    } else {
-                        ctx.fillStyle = '#FFD1A4';
-                        ctx.beginPath();
-                        ctx.arc(x + 5, y - 10, 20, 0, Math.PI * 2);
-                        ctx.fill();
-
-                        ctx.fillStyle = '#000';
-                        ctx.beginPath();
-                        ctx.arc(x, y - 13, 3, 0, Math.PI * 2);
-                        ctx.arc(x + 10, y - 13, 3, 0, Math.PI * 2);
-                        ctx.fill();
-
-                        ctx.beginPath();
-                        ctx.arc(x + 5, y - 7, 8, 0, Math.PI);
-                        ctx.stroke();
-                    }
-                };
-
-                const drawObstacles = () => {
-                    game.obstacles.forEach(obs => {
-                        if (obs.type === 'cone') {
-                            // Cone de trânsito com mais detalhes
-                            // Sombra
-                            ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-                            ctx.beginPath();
-                            ctx.ellipse(obs.x, 337, 22, 5, 0, 0, Math.PI * 2);
-                            ctx.fill();
-                            
-                            // Base do cone
-                            ctx.fillStyle = '#1A1A1A';
-                            ctx.fillRect(obs.x - 22, 333, 44, 4);
-                            
-                            // Corpo principal laranja
-                            ctx.fillStyle = '#FF6600';
-                            ctx.beginPath();
-                            ctx.moveTo(obs.x, 303);
-                            ctx.lineTo(obs.x - 18, 333);
-                            ctx.lineTo(obs.x + 18, 333);
-                            ctx.closePath();
-                            ctx.fill();
-                            
-                            // Faixas brancas reflexivas
-                            ctx.fillStyle = '#FFFFFF';
-                            ctx.beginPath();
-                            ctx.moveTo(obs.x - 3, 310);
-                            ctx.lineTo(obs.x - 16, 318);
-                            ctx.lineTo(obs.x + 16, 318);
-                            ctx.lineTo(obs.x + 3, 310);
-                            ctx.closePath();
-                            ctx.fill();
-                            
-                            ctx.beginPath();
-                            ctx.moveTo(obs.x - 6, 322);
-                            ctx.lineTo(obs.x - 14, 328);
-                            ctx.lineTo(obs.x + 14, 328);
-                            ctx.lineTo(obs.x + 6, 322);
-                            ctx.closePath();
-                            ctx.fill();
-                            
-                            // Brilho
-                            ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-                            ctx.beginPath();
-                            ctx.moveTo(obs.x - 2, 305);
-                            ctx.lineTo(obs.x - 5, 315);
-                            ctx.lineTo(obs.x - 3, 315);
-                            ctx.closePath();
-                            ctx.fill();
-                            
-                        } else if (obs.type === 'rock') {
-                            // Pedra com textura
-                            // Sombra
-                            ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
-                            ctx.beginPath();
-                            ctx.ellipse(obs.x, 336, 28, 8, 0, 0, Math.PI * 2);
-                            ctx.fill();
-                            
-                            // Pedra principal
-                            ctx.fillStyle = '#696969';
-                            ctx.beginPath();
-                            ctx.ellipse(obs.x, 322, 26, 16, 0.2, 0, Math.PI * 2);
-                            ctx.fill();
-                            
-                            // Detalhes da pedra (tons mais escuros)
-                            ctx.fillStyle = '#505050';
-                            ctx.beginPath();
-                            ctx.ellipse(obs.x - 8, 320, 15, 12, -0.3, 0, Math.PI * 2);
-                            ctx.fill();
-                            
-                            ctx.fillStyle = '#5A5A5A';
-                            ctx.beginPath();
-                            ctx.ellipse(obs.x + 8, 324, 12, 10, 0.4, 0, Math.PI * 2);
-                            ctx.fill();
-                            
-                            // Rachaduras
-                            ctx.strokeStyle = '#404040';
-                            ctx.lineWidth = 1.5;
-                            ctx.beginPath();
-                            ctx.moveTo(obs.x - 15, 318);
-                            ctx.lineTo(obs.x - 5, 325);
-                            ctx.stroke();
-                            
-                            ctx.beginPath();
-                            ctx.moveTo(obs.x + 10, 315);
-                            ctx.lineTo(obs.x + 5, 328);
-                            ctx.stroke();
-                            
-                            // Brilho
-                            ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
-                            ctx.beginPath();
-                            ctx.ellipse(obs.x - 8, 316, 8, 6, -0.3, 0, Math.PI * 2);
-                            ctx.fill();
-                        }
-                    });
-                };
-
-                const drawUI = () => {
-                    const progress = (game.distance / DISTANCE_TO_CURITIBA) * 100;
-                    ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
-                    ctx.fillRect(20, 20, 300, 60);
-                    
-                    ctx.fillStyle = '#FFF';
-                    ctx.font = 'bold 18px Arial';
-                    ctx.textAlign = 'left';
-                    ctx.fillText(`Pato Branco → Curitiba`, 30, 45);
-                    
-                    ctx.fillStyle = '#4CAF50';
-                    ctx.fillRect(30, 55, 280, 15);
-                    ctx.fillStyle = '#FFD700';
-                    ctx.fillRect(30, 55, progress * 2.8, 15);
-                    
-                    ctx.fillStyle = '#FFF';
-                    ctx.font = '14px Arial';
-                    ctx.fillText(`${Math.floor(game.distance)} / ${DISTANCE_TO_CURITIBA} km`, 30, 50);
-
-                    ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
-                    ctx.fillRect(680, 20, 100, 40);
-                    ctx.fillStyle = '#FFF';
-                    ctx.font = 'bold 20px Arial';
-                    ctx.textAlign = 'right';
-                    ctx.fillText(`${Math.floor(gameTime)}s`, 770, 48);
-                };
-
-                const checkCollision = () => {
-                    const playerLeft = 135;
-                    const playerRight = 185;
-                    const playerTop = game.playerY - 35;
-                    const playerBottom = game.playerY + 45;
-
-                    for (let obs of game.obstacles) {
-                        const obsLeft = obs.x - 22;
-                        const obsRight = obs.x + 22;
-                        const obsTop = 310;
-                        const obsBottom = 335;
-
-                        const collisionX = playerRight > obsLeft && playerLeft < obsRight;
-                        const collisionY = playerBottom > obsTop && playerTop < obsBottom;
-
-                        if (collisionX && collisionY) {
-                            return true;
+                // Rua (camada da frente)
+                ctx.fillStyle = '#6B7280'; // Cor da rua
+                ctx.fillRect(0, canvas.height - this.groundHeight, canvas.width, this.groundHeight);
+                
+                // Textura da rua (asfalto)
+                ctx.fillStyle = 'rgba(0,0,0,0.1)'; // Sombra
+                for (let i = 0; i < canvas.width; i += 3) {
+                    for (let j = 0; j < this.groundHeight; j += 3) {
+                        if (Math.random() < 0.2) { // Pequenos pontos escuros
+                            ctx.fillRect(i, canvas.height - this.groundHeight + j, 1, 1);
                         }
                     }
-                    return false;
-                };
-
-                const gameLoop = () => {
-                    if (gameState !== 'playing') return;
-
-                    ctx.clearRect(0, 0, 800, 450);
-                    drawBackground();
-                    drawObstacles();
-                    drawPlayer();
-                    drawUI();
-
-                    game.playerVelocity += game.gravity;
-                    game.playerY += game.playerVelocity;
-
-                    if (game.playerY > 270) {
-                        game.playerY = 270;
-                        game.playerVelocity = 0;
-                        game.isJumping = false;
+                }
+                ctx.fillStyle = 'rgba(255,255,255,0.05)'; // Pequenos pontos claros
+                 for (let i = 0; i < canvas.width; i += 5) {
+                    for (let j = 0; j < this.groundHeight; j += 5) {
+                        if (Math.random() < 0.1) {
+                            ctx.fillRect(i, canvas.height - this.groundHeight + j, 1, 1);
+                        }
                     }
-
-                    game.background += game.speed;
-                    game.distance += game.speed / 100;
-
-                    game.clouds.forEach(cloud => {
-                        cloud.x -= cloud.speed;
-                        if (cloud.x < -100) cloud.x = 900;
-                    });
-
-                    if (game.obstacles.length === 0 || game.obstacles[game.obstacles.length - 1].x < 250) {
-                        const types = ['cone', 'rock'];
-                        game.obstacles.push({
-                            x: 850,
-                            type: types[Math.floor(Math.random() * types.length)]
-                        });
-                    }
-
-                    game.obstacles = game.obstacles.filter(obs => {
-                        obs.x -= game.speed;
-                        return obs.x > -50;
-                    });
-
-                    if (checkCollision()) {
-                        setGameState('finished');
-                        setScore(Math.floor(game.distance));
-                        return;
-                    }
-
-                    if (game.distance >= DISTANCE_TO_CURITIBA) {
-                        setGameState('finished');
-                        setScore(DISTANCE_TO_CURITIBA);
-                        return;
-                    }
-
-                    animationRef.current = requestAnimationFrame(gameLoop);
-                };
-
-                if (gameState === 'playing') {
-                    gameLoop();
                 }
 
-                return () => {
-                    if (animationRef.current) {
-                        cancelAnimationFrame(animationRef.current);
-                    }
-                };
-            }, [gameState, playerImage, gameTime]);
 
-            useEffect(() => {
-                let interval;
-                if (gameState === 'playing') {
-                    interval = setInterval(() => {
-                        setGameTime(prev => {
-                            if (prev >= GAME_DURATION) {
-                                setGameState('finished');
-                                setScore(Math.floor(gameDataRef.current.distance));
-                                return prev;
-                            }
-                            return prev + 1;
-                        });
-                    }, 1000);
+                // Linhas da rua
+                ctx.fillStyle = 'yellow';
+                for (let i = 0; i < canvas.width / 80; i++) {
+                    ctx.fillRect((i * 80 - (this.totalDistance % 80)), canvas.height - this.groundHeight / 2 - 2, 40, 4);
                 }
-                return () => clearInterval(interval);
-            }, [gameState]);
+            }
+            
+            update() {
+                this.totalDistance += gameSpeed;
+            }
+        }
+        
+        class FinishCity {
+             constructor(distance) {
+                 this.x = distance;
+                 this.buildings = [];
+                 let currentX = 0;
+                 // Gera uma silhueta de cidade densa
+                 while(currentX < canvas.width * 1.5) {
+                     const width = 50 + Math.random() * 80;
+                     const height = canvas.height * 0.3 + Math.random() * (canvas.height * 0.4);
+                     this.buildings.push({
+                         x: currentX,
+                         y: canvas.height - height - 50, // Na linha do chão
+                         width: width,
+                         height: height,
+                         color: `hsl(220, 15%, ${20 + Math.random() * 25}%)`
+                     });
+                     currentX += width - 10; // Sobrepõe um pouco
+                 }
+             }
+             
+             draw() {
+                 const screenX = this.x;
+                 ctx.save();
+                 ctx.translate(screenX, 0);
 
-            const startGame = () => {
-                // Ativar som do vídeo quando o usuário interage
-                const video = videoRef.current;
-                if (video) {
-                    video.muted = false;
-                    video.play().catch(e => console.log('Erro ao ativar som:', e));
+                 // Desenha os prédios da cidade final
+                 this.buildings.forEach(b => {
+                     ctx.fillStyle = b.color;
+                     ctx.fillRect(b.x, b.y, b.width, b.height);
+                 });
+
+                 // Placa de boas-vindas
+                 ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                 ctx.fillRect(canvas.width * 0.1, canvas.height * 0.2, canvas.width * 0.8, 120);
+                 ctx.strokeStyle = '#00d26e';
+                 ctx.lineWidth = 4;
+                 ctx.strokeRect(canvas.width * 0.1, canvas.height * 0.2, canvas.width * 0.8, 120);
+
+                 ctx.fillStyle = '#00d26e';
+                 ctx.shadowColor = '#00d26e';
+                 ctx.shadowBlur = 20;
+                 ctx.font = 'bold 48px Inter';
+                 ctx.textAlign = 'center';
+                 ctx.textBaseline = 'middle';
+                 ctx.fillText('Bem vindo a Curitiba', canvas.width / 2, canvas.height * 0.2 + 60);
+                 ctx.shadowBlur = 0; // Reseta a sombra
+
+                 ctx.restore();
+             }
+             
+             update() {
+                 this.x -= gameSpeed;
+             }
+        }
+
+        // --- Funções do Jogo ---
+        function init() {
+            resizeCanvas();
+
+            raceDistance = 15000; // Distância total para a velocidade calculada
+            gameSpeed = raceDistance / (GAME_DURATION_SECONDS * 60); // 60 FPS
+            
+            gameState = 'pre-game';
+            
+            player = new Player();
+            background = new Background();
+            background.setRaceDistance(raceDistance);
+            finishLine = new FinishCity(raceDistance);
+            
+            score = 0;
+            collectibles = [];
+            floatingScores = [];
+            let collectiblePosition = 600;
+            while(collectiblePosition < raceDistance - 1000) {
+                // Posição Y aleatória: no chão ou um pouco acima para pular
+                const collectibleY = canvas.height - 50 - 35 - (Math.random() < 0.5 ? 0 : 80);
+                collectibles.push(new Collectible(collectiblePosition, collectibleY));
+                collectiblePosition += 300 + Math.random() * 300; // Espaçamento entre bananas
+            }
+        }
+
+        function animate() {
+            if (gameState === 'paused') return;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            background.draw();
+            
+            if (gameState === 'running') {
+                background.update();
+                
+                finishLine.update();
+                finishLine.draw();
+                
+                // Desenhar e atualizar colecionáveis
+                collectibles.forEach(collectible => {
+                    if (!collectible.collected) {
+                        collectible.update();
+                        collectible.draw();
+                    }
+                });
+
+                // Desenhar e atualizar pontuações flutuantes
+                for (let i = floatingScores.length - 1; i >= 0; i--) {
+                    const fs = floatingScores[i];
+                    fs.update();
+                    fs.draw();
+                    if (fs.life <= 0) {
+                        floatingScores.splice(i, 1);
+                    }
+                }
+                
+                // Desenhar e atualizar jogador
+                player.update(canvas.height - background.groundHeight);
+                player.draw();
+
+                checkCollisions();
+                
+                // Checar vitória
+                if (player.x > finishLine.x) {
+                    endGame(true);
                 }
 
-                gameDataRef.current = {
-                    playerY: 270,
-                    playerVelocity: 0,
-                    obstacles: [],
-                    background: 0,
-                    trees: gameDataRef.current.trees,
-                    clouds: gameDataRef.current.clouds,
-                    distance: 0,
-                    jumpPower: -13,
-                    gravity: 0.4,
-                    speed: 2.5,
-                    isJumping: false
-                };
-                setGameTime(0);
-                setGameState('playing');
-            };
+                // Desenhar HUD (progresso)
+                drawHUD();
 
-            const handleJump = (e) => {
-                if (gameState === 'playing' && !gameDataRef.current.isJumping && gameDataRef.current.playerY >= 270) {
-                    gameDataRef.current.playerVelocity = gameDataRef.current.jumpPower;
-                    gameDataRef.current.isJumping = true;
-                    
-                    // Feedback visual em mobile (vibração se disponível)
-                    if (navigator.vibrate) {
-                        navigator.vibrate(50);
-                    }
-                    
-                    // Criar indicador visual de toque
-                    if (e && e.touches && e.touches[0]) {
-                        const touch = e.touches[0];
-                        const rect = canvasRef.current.getBoundingClientRect();
-                        const x = touch.clientX - rect.left;
-                        const y = touch.clientY - rect.top;
-                        
-                        const indicator = document.createElement('div');
-                        indicator.className = 'touch-indicator';
-                        indicator.style.width = '60px';
-                        indicator.style.height = '60px';
-                        indicator.style.left = `${x - 30}px`;
-                        indicator.style.top = `${y - 30}px`;
-                        
-                        const container = canvasRef.current.parentElement;
-                        container.appendChild(indicator);
-                        
-                        setTimeout(() => {
-                            if (container.contains(indicator)) {
-                                container.removeChild(indicator);
-                            }
-                        }, 600);
-                    }
+            } else if (gameState === 'pre-game') {
+                 player.draw(); // Mostrar o personagem na tela inicial
+            }
+            
+            requestAnimationFrame(animate);
+        }
+
+        function checkCollisions() {
+            // Checa colisão com colecionáveis (bananas)
+            collectibles.forEach(collectible => {
+                if (!collectible.collected &&
+                    player.x < collectible.x + collectible.width &&
+                    player.x + player.width > collectible.x &&
+                    player.y < collectible.y + collectible.height &&
+                    player.y + player.height > collectible.y
+                ) {
+                    collectible.collected = true;
+                    score += 10; // Adiciona 10 pontos por banana
+                    floatingScores.push(new FloatingScore(player.x + player.width / 2, player.y, '+10'));
                 }
-            };
+            });
+        }
 
-            useEffect(() => {
-                const handleKeyPress = (e) => {
-                    if (e.code === 'Space') {
-                        e.preventDefault();
-                        handleJump();
-                    }
-                };
-                window.addEventListener('keydown', handleKeyPress);
-                return () => window.removeEventListener('keydown', handleKeyPress);
-            }, [gameState]);
+        function drawHUD() {
+            // Pontuação
+            ctx.fillStyle = 'white';
+            ctx.shadowColor = 'black';
+            ctx.shadowBlur = 5;
+            ctx.font = 'bold 24px Inter';
+            ctx.textAlign = 'left';
+            ctx.fillText(`Pontos: ${score}`, 20, 40);
+            ctx.shadowBlur = 0; // Reset shadow
 
-            return (
-                <>
-                    <div className="orientation-warning">
-                        📱 Gire seu dispositivo para o modo paisagem para melhor experiência!
-                    </div>
-                    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b p-4" style={{padding: window.innerWidth <= 768 ? '0' : '1rem'}}>
-                        <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-4xl w-full">
-                            <h1 className="text-4xl font-bold text-center mb-2 text-blue-600">
-                                🏃‍♂️ Corrida Apé
-                            </h1>
-                            <p className="text-center text-gray-600 mb-6">
-                                Pato Branco → Curitiba • 500 km em 30 segundos!
-                            </p>
+            // Barra de progresso
+            const progress = Math.min(1, background.totalDistance / raceDistance); // Cálculo correto e seguro
+            const barWidth = canvas.width * 0.6; // Um pouco menor para não colidir com a pontuação
+            const barX = (canvas.width - barWidth) / 2;
+            
+            ctx.fillStyle = 'rgba(0,0,0,0.5)';
+            ctx.fillRect(barX - 2, 18, barWidth + 4, 24);
+            
+            ctx.fillStyle = '#4ade80';
+            ctx.fillRect(barX, 20, barWidth * progress, 20);
 
-                            <video 
-                                ref={videoRef}
-                                src="assets/indio.mp4"
-                                style={{display: 'none'}}
-                                playsInline
-                            />
+            ctx.fillStyle = 'white';
+            ctx.font = '16px Inter';
+            ctx.textAlign = 'center';
+            ctx.fillText('Progresso', canvas.width / 2, 36);
+        }
 
-                        <div className="canvas-container" style={{
-                            width: '100%', 
-                            maxWidth: window.innerWidth <= 768 ? '100%' : '800px', 
-                            margin: '0 auto', 
-                            position: 'relative'
-                        }}>
-                            <canvas
-                                ref={canvasRef}
-                                width={800}
-                                height={450}
-                                onClick={handleJump}
-                                onTouchStart={handleJump}
-                                className="border-4 border-blue-300 rounded-lg cursor-pointer w-full"
-                                style={{ 
-                                    maxWidth: '100%', 
-                                    width: '100%',
-                                    height: 'auto',
-                                    display: 'block',
-                                    touchAction: 'none'
-                                }}
-                            />
-                            
-                            {gameState === 'menu' && (
-                                <div className="start-overlay">
-                                    <div className="start-instructions">
-                                        <h3 className="font-bold mb-2 text-center" style={{color: '#1f2937'}}>📋 Como Jogar:</h3>
-                                        <ul className="space-y-1 text-sm" style={{color: '#4b5563'}}>
-                                            <li className="desktop-only">• Pressione <kbd className="px-2 py-1 bg-gray-200 rounded">ESPAÇO</kbd> ou clique para pular</li>
-                                            <li className="mobile-only">• Toque na tela para pular</li>
-                                            <li>• Desvie dos obstáculos (cones e pedras)</li>
-                                            <li>• Chegue em Curitiba em 30 segundos!</li>
-                                        </ul>
-                                    </div>
-                                    
-                                    <button
-                                        onClick={startGame}
-                                        className="start-button mobile-button"
-                                    >
-                                        <Play style={{width: '2rem', height: '2rem'}} />
-                                        Iniciar Corrida
-                                    </button>
-                                </div>
-                            )}
-                        </div>
-                    </div>
+        function startGame() {
+            init(); // Reinicia o estado do jogo
+            gameState = 'running';
+            startScreen.classList.add('hidden');
+            endScreen.classList.add('hidden');
+            
+            // Inicia o vídeo de fundo
+            backgroundVideo.play().catch(err => console.log('Erro ao iniciar vídeo:', err));
+        }
+        
+        function endGame(didWin) {
+            gameState = 'game-over';
+            endScreen.classList.remove('hidden');
+            endScreen.classList.add('flex');
+            if (didWin) {
+                endMessage.textContent = 'Parabéns, você chegou em Curitiba!';
+                finalScore.textContent = `Pontuação final: ${score}`;
+            } else {
+                endMessage.textContent = 'Game Over!';
+                 finalScore.textContent = `Pontuação final: ${score}`;
+            }
+        }
 
-                    {gameState === 'finished' && (
-                        <div className="game-over-overlay">
-                            <div className="game-over-modal">
-                                <span className="game-over-emoji">
-                                    {score >= DISTANCE_TO_CURITIBA ? '🎉' : '😅'}
-                                </span>
-                                <h2 className="game-over-title text-white font-bold">
-                                    {score >= DISTANCE_TO_CURITIBA ? 'Parabéns!' : 'Quase lá!'}
-                                </h2>
-                                <p className="text-white mb-2" style={{fontSize: '1rem'}}>
-                                    {score >= DISTANCE_TO_CURITIBA 
-                                        ? 'Você chegou em Curitiba!' 
-                                        : 'Continue tentando!'}
-                                </p>
-                                
-                                <div className="game-over-stats">
-                                    <p className="game-over-label">Distância Percorrida</p>
-                                    <div className="game-over-distance">{score} km</div>
-                                    <p className="game-over-label" style={{marginTop: '0.25rem', fontSize: '0.9rem', opacity: '0.8'}}>
-                                        de {DISTANCE_TO_CURITIBA} km
-                                    </p>
-                                </div>
+        // --- Event Listeners ---
+        window.addEventListener('resize', resizeCanvas);
+        
+        startButton.addEventListener('click', startGame);
+        restartButton.addEventListener('click', () => {
+             endScreen.classList.add('hidden');
+             endScreen.classList.remove('flex');
+             startScreen.classList.remove('hidden');
+             init(); // Prepara para um novo jogo
+        });
 
-                                <button
-                                    onClick={startGame}
-                                    className="restart-button"
-                                >
-                                    <RotateCcw style={{width: '1.25rem', height: '1.25rem'}} />
-                                    Jogar Novamente
-                                </button>
-                            </div>
-                        </div>
-                    )}
-                </div>
-                </>
-            );
-        };
+        function handleJump(event) {
+            if (gameState === 'running') {
+                event.preventDefault();
+                player.jump();
+            }
+        }
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<CorridaApe />);
+        // Controles para mobile e desktop
+        window.addEventListener('touchstart', handleJump, { passive: false });
+        window.addEventListener('mousedown', handleJump);
+        window.addEventListener('keydown', (e) => {
+            if(e.code === 'Space' || e.code === 'ArrowUp') {
+                handleJump(e);
+            }
+        });
+
+
+        // --- Início ---
+        init();
+        animate();
     </script>
 </body>
 </html>
+
+
+
