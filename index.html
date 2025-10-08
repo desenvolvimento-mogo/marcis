@@ -75,10 +75,15 @@
 
         let player, obstacles, background, gameState, gameSpeed, score, finishLine, raceDistance, collectibles, floatingScores;
         let headImage = null;
+        let jiraImage = null;
         
         // Precarrega a imagem da cabeça
         headImage = new Image();
         headImage.src = 'assets/cabeca.png';
+        
+        // Precarrega a imagem do item colecionável
+        jiraImage = new Image();
+        jiraImage.src = 'assets/jira.webp';
         
         const GAME_DURATION_SECONDS = 60; // Duração da corrida
 
@@ -284,29 +289,19 @@
                 ctx.save();
                 ctx.translate(this.x, this.y);
 
-                // Círculo pulsante atrás da banana
+                // Círculo pulsante atrás do item
                 const pulseRadius = 20 + Math.sin(this.animationFrame) * 5;
                 const pulseOpacity = 0.6 + Math.sin(this.animationFrame) * 0.3;
-                ctx.fillStyle = `rgba(255, 222, 52, ${pulseOpacity})`;
+                ctx.fillStyle = `rgba(59, 130, 246, ${pulseOpacity})`; // Azul pulsante
                 ctx.beginPath();
                 ctx.arc(this.width / 2, this.height / 2, pulseRadius, 0, Math.PI * 2);
                 ctx.fill();
 
-
-                // Desenho da banana
-                ctx.fillStyle = '#FFDE34'; // Cor da banana
-                ctx.strokeStyle = '#B39B2A'; // Contorno
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                ctx.moveTo(5, 20);
-                ctx.quadraticCurveTo(15, 0, 30, 15);
-                ctx.quadraticCurveTo(15, 35, 5, 20);
-                ctx.fill();
-                ctx.stroke();
-
-                // Caule
-                ctx.fillStyle = '#6E4513';
-                ctx.fillRect(0, 15, 8, 5);
+                // Desenho da imagem jira
+                if (jiraImage) {
+                    ctx.drawImage(jiraImage, 0, 0, this.width, this.height);
+                }
+                
                 ctx.restore();
             }
 
@@ -687,7 +682,7 @@
                 // Posição Y aleatória: no chão ou um pouco acima para pular
                 const collectibleY = canvas.height - 50 - 35 - (Math.random() < 0.5 ? 0 : 80);
                 collectibles.push(new Collectible(collectiblePosition, collectibleY));
-                collectiblePosition += 300 + Math.random() * 300; // Espaçamento entre bananas
+                collectiblePosition += 300 + Math.random() * 300; // Espaçamento entre itens
             }
         }
 
@@ -744,7 +739,7 @@
         }
 
         function checkCollisions() {
-            // Checa colisão com colecionáveis (bananas)
+            // Checa colisão com colecionáveis
             collectibles.forEach(collectible => {
                 if (!collectible.collected &&
                     player.x < collectible.x + collectible.width &&
@@ -753,7 +748,7 @@
                     player.y + player.height > collectible.y
                 ) {
                     collectible.collected = true;
-                    score += 10; // Adiciona 10 pontos por banana
+                    score += 10; // Adiciona 10 pontos por item
                     floatingScores.push(new FloatingScore(player.x + player.width / 2, player.y, '+10'));
                 }
             });
